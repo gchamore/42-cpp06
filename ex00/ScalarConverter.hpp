@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Bureaucrat.hpp                                     :+:      :+:    :+:   */
+/*   ScalarConverter.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,44 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUREAUCRAT_HPP
-#define BUREAUCRAT_HPP
+#ifndef SCALARCONVERTER_HPP
+#define SCALARCONVERTER_HPP
 
 #include <iostream>
+#include <string>
+#include <sstream>
+#include <limits>
+#include <climits>
+#include <iomanip>
+#include <cmath>
+#include <cstdlib>
+#include <float.h>
 
-class Bureaucrat
+class ScalarConverter
 {
 public:
-	Bureaucrat();
-	Bureaucrat(const std::string name, unsigned int const grade);
-	Bureaucrat(const Bureaucrat &other);
-	~Bureaucrat();
+	ScalarConverter(const ScalarConverter &other);
+	virtual ~ScalarConverter();
 
-	Bureaucrat &operator=(const Bureaucrat &other);
+	ScalarConverter &operator=(const ScalarConverter &other);
 
-	class GradeTooHighException : public std::exception
-    {
-    public:
-        virtual const char *what() const throw();
-    };
-
-    class GradeTooLowException : public std::exception
-    {
-    public:
-        virtual const char *what() const throw();
-    };
-
-	void IncrementGrade();
-	void DecrementGrade();
-	std::string getName() const;
-	unsigned int getGrade() const;
-
+	static void convert(const std::string &str);
 
 private:
-	std::string const _name;
-	unsigned int _grade;
+	ScalarConverter();
+	
 };
-
-std::ostream& operator<<(std::ostream& os, const Bureaucrat& Bureaucrat);
 
 #endif
