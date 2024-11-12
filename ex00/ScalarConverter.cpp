@@ -86,115 +86,119 @@ double toDouble(const std::string &str)
 
 void ScalarConverter::convert(const std::string &str)
 {
-    // 1. Vérifier les valeurs spéciales
-    if (str == "nan" || str == "nanf")
-    {
-        std::cout << "char: impossible" << std::endl;
-        std::cout << "int: impossible" << std::endl;
-        std::cout << "float: nanf" << std::endl;
-        std::cout << "double: nan" << std::endl;
-        return;
-    }
-    if (str == "+inf" || str == "+inff" || str == "inf" || str == "inff")
-    {
-        std::cout << "char: impossible" << std::endl;
-        std::cout << "int: impossible" << std::endl;
-        std::cout << "float: +inff" << std::endl;
-        std::cout << "double: +inf" << std::endl;
-        return;
-    }
-    if (str == "-inf" || str == "-inff")
-    {
-        std::cout << "char: impossible" << std::endl;
-        std::cout << "int: impossible" << std::endl;
-        std::cout << "float: -inff" << std::endl;
-        std::cout << "double: -inf" << std::endl;
-        return;
-    }
+	// 1. Vérifier les valeurs spéciales
+	if (str == "nan" || str == "nanf")
+	{
+		std::cout << "char: impossible" << std::endl;
+		std::cout << "int: impossible" << std::endl;
+		std::cout << "float: nanf" << std::endl;
+		std::cout << "double: nan" << std::endl;
+		return;
+	}
+	if (str == "+inf" || str == "+inff" || str == "inf" || str == "inff")
+	{
+		std::cout << "char: impossible" << std::endl;
+		std::cout << "int: impossible" << std::endl;
+		std::cout << "float: +inff" << std::endl;
+		std::cout << "double: +inf" << std::endl;
+		return;
+	}
+	if (str == "-inf" || str == "-inff")
+	{
+		std::cout << "char: impossible" << std::endl;
+		std::cout << "int: impossible" << std::endl;
+		std::cout << "float: -inff" << std::endl;
+		std::cout << "double: -inf" << std::endl;
+		return;
+	}
 
-    // 2. Conversion en `char` si un seul caractère non numérique
-    if (str.length() == 1 && !std::isdigit(str[0]))
-    {
-        char charValue = str[0];
-        std::cout << "char: '" << charValue << "'" << std::endl;
-        std::cout << "int: " << static_cast<int>(charValue) << std::endl;
-        std::cout << std::fixed << std::setprecision(1);
-        std::cout << "float: " << static_cast<float>(charValue) << "f" << std::endl;
-        std::cout << "double: " << static_cast<double>(charValue) << std::endl;
-        return;
-    }
+	// 2. Conversion en `char` si un seul caractère non numérique
+	if (str.length() == 1 && !std::isdigit(str[0]))
+	{
+		char charValue = str[0];
+		std::cout << "char: '" << charValue << "'" << std::endl;
+		std::cout << "int: " << static_cast<int>(charValue) << std::endl;
+		std::cout << std::fixed << std::setprecision(1);
+		std::cout << "float: " << static_cast<float>(charValue) << "f" << std::endl;
+		std::cout << "double: " << static_cast<double>(charValue) << std::endl;
+		return;
+	}
 
-    // 3. Essayer de convertir en `int`
-    try
-    {
-        int intValue = toInt(str);
-        std::cout << "char: ";
-        if (intValue >= 0 && intValue <= 127 && std::isprint(static_cast<char>(intValue)))
-            std::cout << "'" << static_cast<char>(intValue) << "'" << std::endl;
-        else
-            std::cout << "Non displayable" << std::endl;
-        
-        std::cout << "int: " << intValue << std::endl;
-        std::cout << std::fixed << std::setprecision(1);
-        std::cout << "float: " << static_cast<float>(intValue) << "f" << std::endl;
-        std::cout << "double: " << static_cast<double>(intValue) << std::endl;
-        return;
-    }
-    catch (...) {} // Ignorer les erreurs ici et passer à la conversion suivante
+	// 3. Essayer de convertir en `int`
+	try
+	{
+		int intValue = toInt(str);
+		std::cout << "char: ";
+		if (intValue >= 0 && intValue <= 127 && std::isprint(static_cast<char>(intValue)))
+			std::cout << "'" << static_cast<char>(intValue) << "'" << std::endl;
+		else
+			std::cout << "Non displayable" << std::endl;
 
-    // 4. Essayer de convertir en `float` avec suffixe 'f'
-    try
-    {
-        if (str[str.length() - 1] == 'f')
-        {
-            float floatValue = toFloat(str);
-            std::cout << "char: ";
-            if (floatValue >= 0 && floatValue <= 127 && std::isprint(static_cast<char>(floatValue)))
-                std::cout << "'" << static_cast<char>(floatValue) << "'" << std::endl;
-            else
-                std::cout << "Non displayable" << std::endl;
-            std::cout << "int: ";
-            if (floatValue >= static_cast<float>(INT_MIN) && floatValue <= static_cast<float>(INT_MAX))
-                std::cout << static_cast<int>(floatValue) << std::endl;
-            else
-                std::cout << "impossible" << std::endl;
-            std::cout << std::fixed << std::setprecision(1);
-            std::cout << "float: " << floatValue << "f" << std::endl;
-            std::cout << "double: " << static_cast<double>(floatValue) << std::endl;
-            return;
-        }
-    }
-    catch (...) {} // Ignorer les erreurs ici et passer à la conversion suivante
+		std::cout << "int: " << intValue << std::endl;
+		std::cout << std::fixed << std::setprecision(1);
+		std::cout << "float: " << static_cast<float>(intValue) << "f" << std::endl;
+		std::cout << "double: " << static_cast<double>(intValue) << std::endl;
+		return;
+	}
+	catch (...)
+	{
+	} // Ignorer les erreurs ici et passer à la conversion suivante
 
-    // 5. Essayer de convertir en `double`
-    try
-    {
-        std::string doubleStr = str;
-        if (doubleStr[doubleStr.length() - 1] == 'f')
-        {
-            doubleStr = doubleStr.substr(0, doubleStr.length() - 1);
-        }
-        double doubleValue = toDouble(doubleStr);
-        std::cout << "char: ";
-        if (doubleValue >= 0 && doubleValue <= 127 && std::isprint(static_cast<char>(doubleValue)))
-            std::cout << "'" << static_cast<char>(doubleValue) << "'" << std::endl;
-        else
-            std::cout << "Non displayable" << std::endl;
-        std::cout << "int: ";
-        if (doubleValue >= INT_MIN && doubleValue <= INT_MAX)
-            std::cout << static_cast<int>(doubleValue) << std::endl;
-        else
-            std::cout << "impossible" << std::endl;
-        std::cout << std::fixed << std::setprecision(1);
-        std::cout << "float: ";
-        if (doubleValue >= -FLT_MAX && doubleValue <= FLT_MAX)
-            std::cout << static_cast<float>(doubleValue) << "f" << std::endl;
-        else
-            std::cout << "impossible" << std::endl;
-        std::cout << "double: " << doubleValue << std::endl;
-    }
-    catch (const std::exception &e)
-    {
-        std::cout << "Conversion error: " << e.what() << std::endl;
-    }
+	// 4. Essayer de convertir en `float` avec suffixe 'f'
+	try
+	{
+		if (str[str.length() - 1] == 'f')
+		{
+			float floatValue = toFloat(str);
+			std::cout << "char: ";
+			if (floatValue >= 0 && floatValue <= 127 && std::isprint(static_cast<char>(floatValue)))
+				std::cout << "'" << static_cast<char>(floatValue) << "'" << std::endl;
+			else
+				std::cout << "Non displayable" << std::endl;
+			std::cout << "int: ";
+			if (floatValue >= static_cast<float>(INT_MIN) && floatValue <= static_cast<float>(INT_MAX))
+				std::cout << static_cast<int>(floatValue) << std::endl;
+			else
+				std::cout << "impossible" << std::endl;
+			std::cout << std::fixed << std::setprecision(1);
+			std::cout << "float: " << floatValue << "f" << std::endl;
+			std::cout << "double: " << static_cast<double>(floatValue) << std::endl;
+			return;
+		}
+	}
+	catch (...)
+	{
+	} // Ignorer les erreurs ici et passer à la conversion suivante
+
+	// 5. Essayer de convertir en `double`
+	try
+	{
+		std::string doubleStr = str;
+		if (doubleStr[doubleStr.length() - 1] == 'f')
+		{
+			doubleStr = doubleStr.substr(0, doubleStr.length() - 1);
+		}
+		double doubleValue = toDouble(doubleStr);
+		std::cout << "char: ";
+		if (doubleValue >= 0 && doubleValue <= 127 && std::isprint(static_cast<char>(doubleValue)))
+			std::cout << "'" << static_cast<char>(doubleValue) << "'" << std::endl;
+		else
+			std::cout << "Non displayable" << std::endl;
+		std::cout << "int: ";
+		if (doubleValue >= INT_MIN && doubleValue <= INT_MAX)
+			std::cout << static_cast<int>(doubleValue) << std::endl;
+		else
+			std::cout << "impossible" << std::endl;
+		std::cout << std::fixed << std::setprecision(1);
+		std::cout << "float: ";
+		if (doubleValue >= -FLT_MAX && doubleValue <= FLT_MAX)
+			std::cout << static_cast<float>(doubleValue) << "f" << std::endl;
+		else
+			std::cout << "impossible" << std::endl;
+		std::cout << "double: " << doubleValue << std::endl;
+	}
+	catch (const std::exception &e)
+	{
+		std::cout << "Conversion error: " << e.what() << std::endl;
+	}
 }
