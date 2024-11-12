@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 10:53:13 by gchamore          #+#    #+#             */
-/*   Updated: 2024/11/12 15:07:13 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/11/12 16:37:45 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int main(int ac, char **av)
 		std::cerr << "Error: ./convert <value>" << std::endl;
 		return 1;
 	}
-
 	ScalarConverter::convert(av[1]);
 
 	return 0;

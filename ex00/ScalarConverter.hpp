@@ -14,12 +14,7 @@
 #define SCALARCONVERTER_HPP
 
 #include <iostream>
-#include <string>
-#include <sstream>
-#include <limits>
 #include <climits>
-#include <iomanip>
-#include <cmath>
 #include <cstdlib>
 #include <float.h>
 
