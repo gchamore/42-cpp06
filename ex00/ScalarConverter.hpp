@@ -22,7 +22,7 @@ class ScalarConverter
 {
 public:
 	ScalarConverter(const ScalarConverter &other);
-	virtual ~ScalarConverter();
+	~ScalarConverter();
 
 	ScalarConverter &operator=(const ScalarConverter &other);
 
