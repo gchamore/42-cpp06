@@ -82,6 +82,8 @@ double toDouble(const std::string &str)
 	return value;
 }
 
+#include <iomanip> // Include this for std::fixed and std::setprecision
+
 void ScalarConverter::convert(const std::string &str)
 {
     // 1. Vérifier les valeurs spéciales
@@ -116,8 +118,9 @@ void ScalarConverter::convert(const std::string &str)
         char charValue = str[0];
         std::cout << "char: '" << charValue << "'" << std::endl;
         std::cout << "int: " << static_cast<int>(charValue) << std::endl;
-        std::cout << "float: " << static_cast<float>(charValue) << ".0f" << std::endl;
-        std::cout << "double: " << static_cast<double>(charValue) << ".0" << std::endl;
+        std::cout << std::fixed << std::setprecision(1);
+        std::cout << "float: " << static_cast<float>(charValue) << "f" << std::endl;
+        std::cout << "double: " << static_cast<double>(charValue) << std::endl;
         return;
     }
 
@@ -132,8 +135,9 @@ void ScalarConverter::convert(const std::string &str)
             std::cout << "Non displayable" << std::endl;
         
         std::cout << "int: " << intValue << std::endl;
-        std::cout << "float: " << static_cast<float>(intValue) << ".0f" << std::endl;
-        std::cout << "double: " << static_cast<double>(intValue) << ".0" << std::endl;
+        std::cout << std::fixed << std::setprecision(1);
+        std::cout << "float: " << static_cast<float>(intValue) << "f" << std::endl;
+        std::cout << "double: " << static_cast<double>(intValue) << std::endl;
         return;
     }
     catch (...) {} // Ignorer les erreurs ici et passer à la conversion suivante
@@ -144,19 +148,18 @@ void ScalarConverter::convert(const std::string &str)
         if (str[str.length() - 1] == 'f')
         {
             float floatValue = toFloat(str);
-            std::cout << "float: " << floatValue << "f" << std::endl;
             std::cout << "char: ";
             if (floatValue >= 0 && floatValue <= 127 && std::isprint(static_cast<char>(floatValue)))
                 std::cout << "'" << static_cast<char>(floatValue) << "'" << std::endl;
             else
                 std::cout << "Non displayable" << std::endl;
-
             std::cout << "int: ";
             if (floatValue >= static_cast<float>(INT_MIN) && floatValue <= static_cast<float>(INT_MAX))
                 std::cout << static_cast<int>(floatValue) << std::endl;
             else
                 std::cout << "impossible" << std::endl;
-
+            std::cout << std::fixed << std::setprecision(1);
+            std::cout << "float: " << floatValue << "f" << std::endl;
             std::cout << "double: " << static_cast<double>(floatValue) << std::endl;
             return;
         }
@@ -166,25 +169,29 @@ void ScalarConverter::convert(const std::string &str)
     // 5. Essayer de convertir en `double`
     try
     {
-        double doubleValue = toDouble(str);
-        std::cout << "double: " << doubleValue << std::endl;
+        std::string doubleStr = str;
+        if (doubleStr[doubleStr.length() - 1] == 'f')
+        {
+            doubleStr = doubleStr.substr(0, doubleStr.length() - 1);
+        }
+        double doubleValue = toDouble(doubleStr);
         std::cout << "char: ";
         if (doubleValue >= 0 && doubleValue <= 127 && std::isprint(static_cast<char>(doubleValue)))
             std::cout << "'" << static_cast<char>(doubleValue) << "'" << std::endl;
         else
             std::cout << "Non displayable" << std::endl;
-
         std::cout << "int: ";
         if (doubleValue >= INT_MIN && doubleValue <= INT_MAX)
             std::cout << static_cast<int>(doubleValue) << std::endl;
         else
             std::cout << "impossible" << std::endl;
-
+        std::cout << std::fixed << std::setprecision(1);
         std::cout << "float: ";
         if (doubleValue >= -FLT_MAX && doubleValue <= FLT_MAX)
             std::cout << static_cast<float>(doubleValue) << "f" << std::endl;
         else
             std::cout << "impossible" << std::endl;
+        std::cout << "double: " << doubleValue << std::endl;
     }
     catch (const std::exception &e)
     {
