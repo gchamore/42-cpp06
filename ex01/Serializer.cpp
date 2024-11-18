@@ -11,27 +11,46 @@
 /* ************************************************************************** */
 
 #include "Serializer.hpp"
+#include <iostream>
 
+// Constructors
 Serializer::Serializer()
 {
-	// std::cout << "Default constructor called" << std::endl;
+    std::cout << "[Serializer] Default Constructor called\n";
 }
 
-Serializer::Serializer(const Serializer &other)
+Serializer::Serializer(const Serializer &src)
 {
-	// std::cout << "Copy constructor called" << std::endl;
+    std::cout << "[Serializer] Copy Constructor called\n";
+    *this = src;
 }
 
+// Destructor
 Serializer::~Serializer()
 {
-	// std::cout << "Destructor called" << std::endl;
+    std::cout << "[Serializer] Destructor called\n";
 }
 
-Serializer &Serializer::operator=(const Serializer &other)
+// Overloaded Operators
+Serializer &Serializer::operator=(const Serializer &src)
 {
-	if (this != &other)
+    std::cout << "[Serializer] Assignment Operator called\n";
+    if (this == &src)
 	{
-	}
-	// std::cout << "Assignment operator called" << std::endl;
-	return *this;
+        return *this;
+    }
+    return *this;
+}
+
+// Public Methods
+uintptr_t Serializer::serialize(Data *ptr)
+{
+    std::cout << "[Serializer] Serializing data at address: " << ptr << "\n";
+    return reinterpret_cast<uintptr_t>(ptr);
+}
+
+Data *Serializer::unserialize(uintptr_t raw)
+{
+    std::cout << "[Serializer] Unserializing raw address: " << raw << "\n";
+    return reinterpret_cast<Data *>(raw);
 }

@@ -10,27 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRESIDENTIALPARDONFORM_HPP
-#define PRESIDENTIALPARDONFORM_HPP
+#ifndef BASE_HPP
+#define BASE_HPP
 
-#include "AForm.hpp"
+#include <iostream>
 
-class PresidentialPardonForm : public AForm
+class Base
 {
 public:
-	PresidentialPardonForm();
-	PresidentialPardonForm(std::string target);
-	PresidentialPardonForm(const PresidentialPardonForm &other);
-	~PresidentialPardonForm();
-
-	PresidentialPardonForm &operator=(const PresidentialPardonForm &other);
-
-	void pardoned(void) const;
-	virtual void execute(Bureaucrat const & executor) const;
-	static AForm	*makeForm(AForm *form, std::string const &type, std::string const &target);
-
-private :
-	std::string _target;
+		// Destructor
+		virtual ~Base();
 };
 
 #endif

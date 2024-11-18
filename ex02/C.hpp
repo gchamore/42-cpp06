@@ -1,39 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Intern.hpp                                         :+:      :+:    :+:   */
+/*   ClapTrap.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/06 15:59:59 by gchamore          #+#    #+#             */
-/*   Updated: 2024/11/06 17:09:38 by gchamore         ###   ########.fr       */
+/*   Created: 2024/09/30 15:52:14 by gchamore          #+#    #+#             */
+/*   Updated: 2024/10/17 15:57:17 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
-#ifndef INTERN_HPP
-#define INTERN_HPP
+#ifndef C_HPP
+#define C_HPP
 
-#include <string>
-#include <iostream>
-#include "PresidentialPardonForm.hpp"
-#include "RobotomyRequestForm.hpp"
-#include "ShrubberyCreationForm.hpp"
+#include "Base.hpp"
 
-
-
-class Intern
+class C: public Base
 {
-	public:
-		Intern();
-		Intern(const Intern &other);
-
-		~Intern();
-
-		Intern &operator=(const Intern &other);
-
-		AForm	*makeForm(const std::string &type, const std::string &target);
-
 };
 
 #endif

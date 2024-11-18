@@ -13,21 +13,29 @@
 #ifndef SERIALIZER_HPP
 #define SERIALIZER_HPP
 
+#pragma once
+
+#include <string>
 #include <iostream>
+#include <stdint.h>
+
+typedef struct Data
+{
+	std::string	name;
+	size_t		age;
+	Data		*next;
+}				Data;
 
 class Serializer
 {
-public:
-	Serializer();
-	Serializer(const Serializer &other);
-	~Serializer();
+	public:
+		Serializer();
+		Serializer(const Serializer &src);
+		~Serializer();
+		Serializer &operator=(const Serializer &src);
 
-	Serializer &operator=(const Serializer &other);
-
-	
-
-private:
-
+		uintptr_t serialize(Data *ptr);
+		Data *unserialize(uintptr_t raw);
 };
 
 
