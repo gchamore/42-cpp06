@@ -6,11 +6,11 @@
 #    By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/26 16:41:00 by gchamore          #+#    #+#              #
-#    Updated: 2024/11/12 17:01:06 by gchamore         ###   ########.fr        #
+#    Updated: 2024/11/19 14:30:57 by gchamore         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = convert
+NAME = Serializer
 
 CC = c++
 

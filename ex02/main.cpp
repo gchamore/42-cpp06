@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 10:53:13 by gchamore          #+#    #+#             */
-/*   Updated: 2024/11/06 15:58:02 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/11/19 14:38:12 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,6 @@
 
 #include <cstdlib>
 #include <cstdio>
-
-// creates radomly one of the three classes A, B or C
-// the class is allocated
-// returns NULL if something goes wrong
 
 static Base *generate(void)
 {
@@ -41,12 +37,6 @@ static Base *generate(void)
 	}
 }
 
-
-// is able to identify the 3 different classes A, B and C
-// will write the found type of the *Test into cout
-// *Test: pointer to the class to identify
-// None
-
 static void identify(Base *Test)
 {
 	if (dynamic_cast<A *>(Test))
@@ -63,18 +53,12 @@ static void identify(Base *Test)
 static int i = 0;
 static std::string classes[] = {"A", "B", "C"};
 
-
-// recursive function to find the correct type of the passed &Test
-// will write the found type of the *Test into cout
-// &Test: reference to the class to identify
-// None
-
 static void identify(Base &Test)
 {
 	while (i < 3)
 	{
-		void *foo = NULL; // only to initialize the unused var
-		Base &unused = (Base &)foo; // only to prevent the -Werror from triggering for unused value of the casts
+		void *foo = NULL;
+		Base &unused = (Base &)foo;
 		try
 		{
 			if (i == 0)
@@ -89,7 +73,7 @@ static void identify(Base &Test)
 		}
 		catch (std::exception &e)
 		{
-			// std::cout << e.what() << std::endl; //enable to see what exception was cought
+			// std::cout << e.what() << std::endl;
 			i++;
 			identify(Test);
 			return;
@@ -102,7 +86,7 @@ static void identify(Base &Test)
 
 int main()
 {
-	srand(time(NULL)); // enables the randomness of the generate function
+	srand(time(NULL));
 	for (int j = 0; j < 5; j++)
 	{
 		Base *Test = generate();
