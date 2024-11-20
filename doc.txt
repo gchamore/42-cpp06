@@ -1,0 +1,78 @@
+C++ Casts Information
+
+In C++, there are four main types of casting operators. Each serves a distinct purpose and is designed to replace the traditional C-style casting with safer and more explicit alternatives. Below are the casts, their specificities, and guidance on when to use them.
+
+1. **static_cast**
+   - **Purpose:** Used for compile-time casts between related types.
+   - **Use Cases:**
+     - Converting between numeric types (e.g., `double` to `int`).
+     - Casting pointers between related types in the inheritance hierarchy (e.g., base to derived or vice versa).
+     - Converting between enum types and integers.
+   - **Advantages:**
+     - Safer than C-style casts as it performs type checks at compile time.
+     - Explicit, making the intention of the cast clear.
+   - **Disadvantages:**
+     - Cannot perform runtime type checks; inappropriate casts may result in undefined behavior.
+   - **Example:**
+     ```cpp
+     int num = 42;
+     double result = static_cast<double>(num);
+     ```
+
+2. **dynamic_cast**
+   - **Purpose:** Used for safe runtime casting between pointers or references in a class hierarchy.
+   - **Use Cases:**
+     - Converting a base class pointer or reference to a derived class pointer or reference.
+     - Checking whether an object belongs to a specific derived class.
+   - **Advantages:**
+     - Performs a runtime type check, ensuring the safety of the cast.
+     - Returns `nullptr` for pointers or throws `std::bad_cast` for references if the cast is invalid.
+   - **Disadvantages:**
+     - Only works with polymorphic types (i.e., classes with at least one virtual function).
+     - Can incur a runtime performance cost.
+   - **Example:**
+     ```cpp
+     Base* basePtr = new Derived();
+     Derived* derivedPtr = dynamic_cast<Derived*>(basePtr);
+     if (derivedPtr) {
+         // Safe to use derivedPtr
+     }
+     ```
+
+3. **const_cast**
+   - **Purpose:** Used to add or remove `const` or `volatile` qualifiers.
+   - **Use Cases:**
+     - Removing `const` to modify a value that was initially declared as `const`.
+     - Adding `const` for functions that require const-qualified arguments.
+   - **Advantages:**
+     - Necessary in some low-level programming scenarios.
+   - **Disadvantages:**
+     - Violating the `const` contract can lead to undefined behavior if the original value was defined as immutable.
+   - **Example:**
+     ```cpp
+     const int num = 10;
+     int* nonConstNum = const_cast<int*>(&num);
+     *nonConstNum = 20; // Undefined behavior if 'num' is truly immutable
+     ```
+
+4. **reinterpret_cast**
+   - **Purpose:** Used for low-level, potentially unsafe conversions between unrelated types.
+   - **Use Cases:**
+     - Converting between pointers of unrelated types.
+     - Converting between integer types and pointers.
+   - **Advantages:**
+     - Offers maximum flexibility for type casting.
+   - **Disadvantages:**
+     - No safety checks, and the result may be compiler- or platform-dependent.
+     - Should be used only when absolutely necessary (e.g., interfacing with hardware or legacy C code).
+   - **Example:**
+     ```cpp
+     int num = 42;
+     void* ptr = reinterpret_cast<void*>(&num);
+     int* intPtr = reinterpret_cast<int*>(ptr);
+     ```
+
+### General Guidance:
+- **Prefer safer casts:** Use `static_cast` or `dynamic_cast` where applicable.
+- **Minimize use of `reinterpret_cast`:** This is intended for advanced scenarios and should be used sparingly.
+- **Avoid unnecessary `const_cast`:** Changing `const`-qualified values can break program logic and lead to undefined behavior.

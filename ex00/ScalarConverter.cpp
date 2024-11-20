@@ -32,9 +32,7 @@ ScalarConverter &ScalarConverter::operator=(const ScalarConverter &other)
 {
 	std::cout << "Assignation operator called" << std::endl;
 	if (this != &other)
-	{
-		// Do something
-	}
+	{}
 	return *this;
 }
 
@@ -84,9 +82,9 @@ double toDouble(const std::string &str)
 
 #include <iomanip> // Include this for std::fixed and std::setprecision
 
+// norme IEEE 754 for floating-point arithmetic for flt and double = inf and nan ok
 void ScalarConverter::convert(const std::string &str)
 {
-	// 1. Vérifier les valeurs spéciales
 	if (str == "nan" || str == "nanf")
 	{
 		std::cout << "char: impossible" << std::endl;
@@ -111,8 +109,6 @@ void ScalarConverter::convert(const std::string &str)
 		std::cout << "double: -inf" << std::endl;
 		return;
 	}
-
-	// 2. Conversion en `char` si un seul caractère non numérique
 	if (str.length() == 1 && !std::isdigit(str[0]))
 	{
 		char charValue = str[0];
@@ -123,8 +119,6 @@ void ScalarConverter::convert(const std::string &str)
 		std::cout << "double: " << static_cast<double>(charValue) << std::endl;
 		return;
 	}
-
-	// 3. Essayer de convertir en `int`
 	try
 	{
 		int intValue = toInt(str);
@@ -142,9 +136,8 @@ void ScalarConverter::convert(const std::string &str)
 	}
 	catch (...)
 	{
-	} // Ignorer les erreurs ici et passer à la conversion suivante
-
-	// 4. Essayer de convertir en `float` avec suffixe 'f'
+		// Exception ignored intentionally: move on to the next conversion attempt
+	}
 	try
 	{
 		if (str[str.length() - 1] == 'f')
@@ -168,9 +161,8 @@ void ScalarConverter::convert(const std::string &str)
 	}
 	catch (...)
 	{
-	} // Ignorer les erreurs ici et passer à la conversion suivante
-
-	// 5. Essayer de convertir en `double`
+		// Exception ignored intentionally: move on to the next conversion attempt
+	}
 	try
 	{
 		std::string doubleStr = str;
