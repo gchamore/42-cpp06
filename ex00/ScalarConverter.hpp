@@ -25,7 +25,6 @@ public:
 	~ScalarConverter();
 
 	ScalarConverter &operator=(const ScalarConverter &other);
-
 	static void convert(const std::string &str);
 
 private:

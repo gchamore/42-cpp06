@@ -32,7 +32,8 @@ ScalarConverter &ScalarConverter::operator=(const ScalarConverter &other)
 {
 	std::cout << "Assignation operator called" << std::endl;
 	if (this != &other)
-	{}
+	{
+	}
 	return *this;
 }
 

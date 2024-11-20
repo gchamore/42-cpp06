@@ -18,8 +18,8 @@
 class Base
 {
 public:
-		// Destructor
-		virtual ~Base();
+	// Destructor
+	virtual ~Base();
 };
 
 #endif
