@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 10:53:13 by gchamore          #+#    #+#             */
-/*   Updated: 2024/11/20 13:04:09 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/11/20 15:14:19 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,24 @@ int main()
     printData(&secondData, "Second Data");
 
     // Perform serialization and deserialization
-	std::cout << "=== Serialization and unserialize Data Structures ===\n\n";
-    Serializer serializer;
-    uintptr_t raw_first = serializer.serialize(&firstData);
-	std::cout << "\nSerialized Address: " << raw_first << "\n" << std::endl;
-    Data* unserializeData = serializer.unserialize(raw_first);
-	std::cout << "\nUnserialized Address: " << unserializeData << "\n" << std::endl;
+    std::cout << "=== Serialization and unserialize Data Structures ===\n\n";
 
-    // Print the unserialize data structure
-    std::cout << "\n=== Unserialize Data Structures ===\n\n";
-    printData(unserializeData, "unserialize First Data");
-    printData(unserializeData->next, "unserialize Second Data");
+    uintptr_t raw_first = Serializer::serialize(&firstData);
+    std::cout << "\nSerialized Address (First Data): " << raw_first << "\n" << std::endl;
+
+    uintptr_t raw_second = Serializer::serialize(&secondData);
+    std::cout << "\nSerialized Address (Second Data): " << raw_second << "\n" << std::endl;
+
+    Data* unserializedFirst = Serializer::unserialize(raw_first);
+	std::cout << "\nUnserialized Address (First Data): " << unserializedFirst << "\n" << std::endl;
+    Data* unserializedSecond = Serializer::unserialize(raw_second);
+	std::cout << "\nUnserialized Address (Second Data): " << unserializedSecond << "\n" << std::endl;
+
+    // Print the unserialized data structure
+    std::cout << "\n=== Unserialized Data Structures ===\n\n";
+    printData(unserializedFirst, "Unserialized First Data");
+    printData(unserializedFirst->next, "Unserialized Second Data");
 
     return 0;
 }
+

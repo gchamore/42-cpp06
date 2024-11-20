@@ -76,3 +76,59 @@ In C++, there are four main types of casting operators. Each serves a distinct p
 - **Prefer safer casts:** Use `static_cast` or `dynamic_cast` where applicable.
 - **Minimize use of `reinterpret_cast`:** This is intended for advanced scenarios and should be used sparingly.
 - **Avoid unnecessary `const_cast`:** Changing `const`-qualified values can break program logic and lead to undefined behavior.
+
+
+dynamic_cast : C'est un détective. Il vérifie si une conversion dans une hiérarchie de classes est valide au moment de l'exécution. Si ça ne colle pas, il donne une alerte (exception pour les références, ou nullptr pour les pointeurs).
+static_cast : C'est un optimiste. Il fait confiance au programmeur pour que tout soit correct. Pas de vérification à l'exécution, il applique la conversion directement.
+
+
+------------------------------------------------------------------------------
+Exemple STATIC: Upcasting
+
+Dog* dog = new Dog();
+Animal* animal = static_cast<Animal*>(dog); // Pas besoin de vérification
+animal->speak(); // Appelle une méthode générique de Animal
+------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------
+Exemple Dynamic : Downcasting et Upcasting
+
+Animal* animal = new Dog(); 
+Dog* dog = dynamic_cast<Dog*>(animal); // Vérifie si c'est bien un Dog
+if (dog)
+    dog->bark(); // Appelle une méthode spécifique à Dog
+else
+    std::cout << "This is not a Dog!" << std::endl;
+------------------------------------------------------------------------------
+
+
+
+reinterpret_cast ne fait que réinterpréter les bits. Donc si l'objectif est de modifier la valeur, utilisez une autre approche. 
+
+
+Quand utiliser reinterpret_cast ?
+Travail bas niveau :
+
+Manipuler directement des adresses mémoire.
+Sérialiser ou désérialiser des données.
+Interagir avec des APIs système ou du matériel qui nécessite une gestion brute des données.
+Interopérabilité :
+
+Passer des types non standard entre modules ou bibliothèques.
+Convertir des types personnalisés en formats attendus par des APIs.
+Compatibilité avec du code en C :
+
+Beaucoup d'APIs en C utilisent des void* pour représenter des données génériques.
+
+Accept the use of implicit casts for promotion casts only.
+
+Does the program work as required?
+Did the student create a class with a private constructor, and static
+methods ?
+The reinterpret_cast<> should be used twice:
+
+First from data* to uintptr_t.
+Then, from uintptr_t to data*.
+And the resulting data struct should be usable.

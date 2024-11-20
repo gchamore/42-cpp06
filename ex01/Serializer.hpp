@@ -6,14 +6,12 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 10:53:05 by gchamore          #+#    #+#             */
-/*   Updated: 2024/11/12 16:59:28 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/11/20 15:00:01 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SERIALIZER_HPP
 #define SERIALIZER_HPP
-
-#pragma once
 
 #include <string>
 #include <iostream>
@@ -29,13 +27,14 @@ typedef struct Data
 class Serializer
 {
 	public:
-		Serializer();
 		Serializer(const Serializer &src);
 		~Serializer();
 		Serializer &operator=(const Serializer &src);
 
-		uintptr_t serialize(Data *ptr);
-		Data *unserialize(uintptr_t raw);
+		static uintptr_t serialize(Data *ptr);
+		static Data *unserialize(uintptr_t raw);
+	private:
+		Serializer();
 };
 
 
